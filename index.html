@@ -3,236 +3,338 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SSC AspirantKit AI | Mock Tests & Tools</title>
+    <title>AspirantKit AI | Ultimate Exam Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-        .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
-        .tab-active { border-bottom: 3px solid #2563eb; color: #2563eb; }
-        .btn-tap { transition: transform 0.1s active; }
-        .btn-tap:active { transform: scale(0.95); }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; -webkit-tap-highlight-color: transparent; }
+        .page-content { display: none; }
+        .page-content.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .nav-active { color: #2563eb !important; border-top: 3px solid #2563eb; }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .alert-card { transition: all 0.2s; }
+        .alert-card:active { transform: scale(0.97); }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 pb-20">
+<body class="pb-24">
 
-    <!-- Header -->
-    <header class="bg-blue-600 text-white p-4 sticky top-0 z-50 shadow-lg">
-        <div class="max-w-4xl mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold flex items-center gap-2">
-                <i class="fas fa-graduation-cap"></i> AspirantKit AI
-            </h1>
-            <button onclick="toggleSettings()" class="p-2"><i class="fas fa-cog"></i></button>
+    <!-- Top Branding -->
+    <header class="p-6 flex justify-between items-center bg-white border-b sticky top-0 z-50">
+        <div>
+            <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">AspirantKit <span class="text-blue-600">AI</span></h1>
+            <p id="top-username" class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Premium Study Suite</p>
         </div>
+        <div id="ai-status-dot" class="w-3 h-3 rounded-full bg-red-500 shadow-lg shadow-red-200" title="AI Status"></div>
     </header>
 
-    <!-- Navigation Tabs -->
-    <nav class="bg-white border-b sticky top-[60px] z-40 overflow-x-auto whitespace-nowrap">
-        <div class="max-w-4xl mx-auto flex justify-around">
-            <button onclick="showTab('ai-test')" class="nav-tab px-4 py-3 font-semibold tab-active" id="tab-ai-test">AI Mock Test</button>
-            <button onclick="showTab('photo-tool')" class="nav-tab px-4 py-3 font-semibold text-slate-500" id="tab-photo-tool">Photo Studio</button>
-            <button onclick="showTab('notifs')" class="nav-tab px-4 py-3 font-semibold text-slate-500" id="tab-notifs">Notifications</button>
-        </div>
-    </nav>
+    <main class="max-w-md mx-auto p-5">
 
-    <main class="max-w-4xl mx-auto p-4">
-        
-        <!-- Tab: AI Mock Test -->
-        <section id="ai-test" class="tab-content block">
-            <div class="glass-card rounded-2xl p-6 shadow-sm border border-slate-200">
-                <h2 class="text-lg font-bold mb-2">Generate SSC Mock Test</h2>
-                <p class="text-sm text-slate-600 mb-4">AI generates custom questions based on latest patterns (CGL/CHSL).</p>
-                
+        <!-- DASHBOARD -->
+        <section id="page-home" class="page-content active">
+            <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-[2rem] p-7 text-white mb-6 shadow-xl">
+                <div class="flex justify-between mb-8">
+                    <span class="bg-blue-600 px-3 py-1 rounded-full text-[10px] font-bold">2026 PREP MODE</span>
+                    <i class="fa-solid fa-crown text-amber-400"></i>
+                </div>
+                <h2 class="text-2xl font-bold mb-2">Target SSC CGL</h2>
+                <p class="text-slate-400 text-xs mb-6">"Success is the sum of small efforts, repeated day in and day out."</p>
+                <div class="flex gap-3">
+                    <button onclick="switchTab('age')" class="flex-1 bg-white/10 hover:bg-white/20 py-3 rounded-xl text-xs font-bold transition-all">Check Age</button>
+                    <button onclick="switchTab('mock')" class="flex-1 bg-blue-600 py-3 rounded-xl text-xs font-bold shadow-lg shadow-blue-500/30">Practice AI</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div onclick="switchTab('alerts')" class="bg-white p-5 rounded-3xl shadow-sm border border-slate-100 alert-card">
+                    <div class="w-10 h-10 bg-orange-100 text-orange-600 rounded-xl flex items-center justify-center mb-3">
+                        <i class="fa-solid fa-bell"></i>
+                    </div>
+                    <h3 class="font-bold text-sm">Exam Alerts</h3>
+                    <p class="text-[10px] text-slate-400">SSC, Bank, State</p>
+                </div>
+                <div onclick="switchTab('photo')" class="bg-white p-5 rounded-3xl shadow-sm border border-slate-100 alert-card">
+                    <div class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center mb-3">
+                        <i class="fa-solid fa-camera"></i>
+                    </div>
+                    <h3 class="font-bold text-sm">Photo Studio</h3>
+                    <p class="text-[10px] text-slate-400">Resize 3.5x4.5</p>
+                </div>
+            </div>
+
+            <!-- Recent Notifications Preview -->
+            <div class="mt-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-slate-800">Latest Notifications</h3>
+                    <button onclick="switchTab('alerts')" class="text-xs text-blue-600 font-bold">See All</button>
+                </div>
+                <div class="space-y-3">
+                    <div class="bg-white p-4 rounded-2xl border border-slate-100 flex items-center gap-4">
+                        <div class="bg-blue-50 p-3 rounded-xl text-blue-600"><i class="fa-solid fa-file-lines"></i></div>
+                        <div>
+                            <h4 class="text-sm font-bold">CGL Tier-II Dates</h4>
+                            <p class="text-[10px] text-slate-400">SSC Portal Update</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AGE CALCULATOR -->
+        <section id="page-age" class="page-content">
+            <h2 class="text-xl font-bold mb-6">Age & Eligibility</h2>
+            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
                 <div class="space-y-4">
-                    <select id="exam-type" class="w-full p-3 rounded-xl border border-slate-300 bg-white outline-none">
-                        <option value="CGL">SSC CGL (Tier 1)</option>
-                        <option value="CHSL">SSC CHSL</option>
-                        <option value="MTS">SSC MTS</option>
-                    </select>
-                    <button onclick="generateMock()" class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl shadow-md btn-tap">
-                        <i class="fas fa-robot mr-2"></i> Start AI Mock Test
-                    </button>
-                </div>
-                
-                <div id="test-area" class="mt-8 hidden">
-                    <div id="question-card" class="bg-blue-50 p-4 rounded-xl border border-blue-100">
-                        <!-- Question content will be injected here -->
+                    <div>
+                        <label class="text-[10px] font-bold text-slate-400 uppercase">Your Birth Date</label>
+                        <input type="date" id="dob" class="w-full p-4 bg-slate-50 rounded-2xl mt-1 font-bold outline-none border-2 border-transparent focus:border-blue-500 transition-all">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold text-slate-400 uppercase">Target Cut-off Date</label>
+                        <input type="date" id="cutoff" value="2026-01-01" class="w-full p-4 bg-slate-50 rounded-2xl mt-1 font-bold outline-none border-2 border-transparent focus:border-blue-500 transition-all">
+                    </div>
+                    <button onclick="runAgeCalc()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold shadow-xl">Calculate Age</button>
+                    <div id="age-result" class="hidden text-center p-6 bg-blue-50 rounded-2xl mt-4">
+                        <p class="text-xs text-slate-500 mb-1">Your age will be</p>
+                        <h3 id="age-val" class="text-2xl font-black text-blue-700"></h3>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Tab: Photo Studio -->
-        <section id="photo-tool" class="tab-content hidden">
-            <div class="glass-card rounded-2xl p-6 shadow-sm border border-slate-200">
-                <h2 class="text-lg font-bold mb-2">SSC Photo Resizer</h2>
-                <p class="text-sm text-slate-600 mb-4">Fix dimensions and background for SSC application (3.5cm x 4.5cm).</p>
-                
-                <div class="border-2 border-dashed border-slate-300 rounded-2xl p-8 text-center" id="drop-zone">
-                    <input type="file" id="photo-upload" class="hidden" accept="image/*" onchange="handlePhoto(event)">
-                    <button onclick="document.getElementById('photo-upload').click()" class="bg-slate-100 px-6 py-3 rounded-full font-semibold text-slate-700">
-                        <i class="fas fa-image mr-2"></i> Select Photo
-                    </button>
-                    <p class="text-xs text-slate-400 mt-2">Supports JPG, PNG</p>
+        <!-- ALERTS PAGE -->
+        <section id="page-alerts" class="page-content">
+            <h2 class="text-xl font-bold mb-6">Govt Exam Hub</h2>
+            <div class="space-y-4">
+                <div class="bg-white p-5 rounded-3xl border-l-4 border-blue-600 shadow-sm">
+                    <span class="text-[9px] font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded">SSC</span>
+                    <h4 class="font-bold mt-2">CGL 2026 Pre-Notice</h4>
+                    <p class="text-xs text-slate-500 mt-1">Expected vacancy: 15,000+. Start preparing now!</p>
                 </div>
-
-                <canvas id="canvas" class="hidden w-full mt-4 rounded-lg"></canvas>
-                <div id="photo-actions" class="hidden mt-4">
-                    <button onclick="downloadPhoto()" class="w-full bg-green-600 text-white font-bold py-3 rounded-xl shadow-md">
-                        <i class="fas fa-download mr-2"></i> Download (SSC Ready)
-                    </button>
+                <div class="bg-white p-5 rounded-3xl border-l-4 border-pink-600 shadow-sm">
+                    <span class="text-[9px] font-bold bg-pink-100 text-pink-700 px-2 py-1 rounded">BANKING</span>
+                    <h4 class="font-bold mt-2">SBI Clerk Final Result</h4>
+                    <p class="text-xs text-slate-500 mt-1">Direct link to merit list active on career portal.</p>
+                </div>
+                <div class="bg-white p-5 rounded-3xl border-l-4 border-emerald-600 shadow-sm">
+                    <span class="text-[9px] font-bold bg-emerald-100 text-emerald-700 px-2 py-1 rounded">STATE EXAM</span>
+                    <h4 class="font-bold mt-2">Police Bharti 2025</h4>
+                    <p class="text-xs text-slate-500 mt-1">Physical tests scheduled for next month.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Tab: Notifications -->
-        <section id="notifs" class="tab-content hidden">
-            <div class="space-y-4" id="notif-list">
-                <div class="bg-white p-4 rounded-xl border-l-4 border-orange-500 shadow-sm">
-                    <div class="flex justify-between items-start">
-                        <span class="text-xs font-bold text-orange-600 bg-orange-100 px-2 py-1 rounded">ALERT</span>
-                        <span class="text-xs text-slate-400">2h ago</span>
-                    </div>
-                    <h3 class="font-bold mt-1">CGL 2024 Tier 2 Admit Card Out</h3>
-                    <p class="text-sm text-slate-600">Download starts for CR and NR regions.</p>
+        <!-- AI MOCK TEST -->
+        <section id="page-mock" class="page-content">
+            <h2 class="text-xl font-bold mb-6">AI Mentor Practice</h2>
+            <div class="bg-white p-6 rounded-3xl shadow-sm">
+                <div id="ai-error" class="hidden mb-4 p-4 bg-red-50 text-red-600 rounded-2xl text-[11px] font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <span>Key missing! Go to Settings.</span>
                 </div>
+                <select id="mock-type" class="w-full p-4 bg-slate-50 rounded-2xl mb-4 font-bold outline-none">
+                    <option value="SSC CGL General Awareness">GK / GS (General Studies)</option>
+                    <option value="English Vocabulary">English Vocabulary</option>
+                    <option value="Reasoning Puzzle">Reasoning</option>
+                </select>
+                <button id="ai-btn" onclick="fetchAI()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold shadow-lg shadow-blue-200 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-robot"></i> Generate AI Question
+                </button>
+                <div id="ai-output-box" class="hidden mt-6 p-5 bg-slate-50 rounded-2xl border-2 border-blue-50 text-xs leading-relaxed whitespace-pre-wrap font-medium text-slate-700">
+                    Consulting AI patterns...
+                </div>
+            </div>
+        </section>
+
+        <!-- PHOTO STUDIO -->
+        <section id="page-photo" class="page-content">
+            <h2 class="text-xl font-bold mb-6">SSC Photo Studio</h2>
+            <div class="bg-white p-8 rounded-3xl border-2 border-dashed border-slate-200 text-center">
+                <input type="file" id="pic-input" class="hidden" accept="image/*" onchange="handlePic(this)">
+                <div id="pic-idle">
+                    <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400">
+                        <i class="fa-solid fa-camera-rotate text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold">Resize to 3.5x4.5cm</h3>
+                    <p class="text-[10px] text-slate-400 mb-6">Compliant with SSC CGL/CHSL forms</p>
+                    <button onclick="document.getElementById('pic-input').click()" class="bg-slate-900 text-white px-8 py-3 rounded-full font-bold text-sm">Upload Photo</button>
+                </div>
+                <div id="pic-ready" class="hidden">
+                    <canvas id="pic-canvas" class="w-full rounded-2xl mb-4 shadow-xl border-4 border-white"></canvas>
+                    <button onclick="savePic()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold">Download Ready File</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SETTINGS -->
+        <section id="page-settings" class="page-content">
+            <h2 class="text-xl font-bold mb-6">User Setup</h2>
+            <div class="bg-white p-6 rounded-3xl shadow-sm space-y-6">
+                <div>
+                    <label class="text-[10px] font-bold text-slate-400 uppercase">Your Name</label>
+                    <input type="text" id="user-name" placeholder="E.g. Inspector Rahul" class="w-full p-4 bg-slate-50 rounded-2xl mt-1 font-bold outline-none">
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-slate-400 uppercase">Google Gemini API Key</label>
+                    <input type="password" id="api-key" placeholder="Paste AIza... key" class="w-full p-4 bg-slate-50 rounded-2xl mt-1 font-bold outline-none">
+                    <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-[10px] text-blue-600 mt-2 block font-bold underline">Get Free Key from Google</a>
+                </div>
+                <button onclick="saveSettings()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold shadow-lg">Save & Test AI</button>
             </div>
         </section>
 
     </main>
 
-    <!-- Settings Modal -->
-    <div id="settings-modal" class="fixed inset-0 bg-black/50 z-[60] hidden flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-sm rounded-3xl p-6">
-            <h2 class="text-xl font-bold mb-4">Settings</h2>
-            <label class="block text-sm font-semibold mb-2">Gemini API Key</label>
-            <input type="password" id="api-key" placeholder="Enter API Key" class="w-full p-3 border rounded-xl mb-4">
-            <button onclick="saveSettings()" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold">Save & Close</button>
-        </div>
-    </div>
+    <!-- Bottom Navbar -->
+    <nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t p-2 flex justify-around z-50 shadow-2xl">
+        <button onclick="switchTab('home')" class="nav-item p-3 text-slate-300 flex flex-col items-center" id="nav-home">
+            <i class="fa-solid fa-house text-xl"></i>
+            <span class="text-[8px] font-black uppercase mt-1">Home</span>
+        </button>
+        <button onclick="switchTab('alerts')" class="nav-item p-3 text-slate-300 flex flex-col items-center" id="nav-alerts">
+            <i class="fa-solid fa-newspaper text-xl"></i>
+            <span class="text-[8px] font-black uppercase mt-1">Alerts</span>
+        </button>
+        <button onclick="switchTab('mock')" class="nav-item p-3 text-slate-300 flex flex-col items-center" id="nav-mock">
+            <i class="fa-solid fa-brain text-xl"></i>
+            <span class="text-[8px] font-black uppercase mt-1">Practice</span>
+        </button>
+        <button onclick="switchTab('settings')" class="nav-item p-3 text-slate-300 flex flex-col items-center" id="nav-settings">
+            <i class="fa-solid fa-user-gear text-xl"></i>
+            <span class="text-[8px] font-black uppercase mt-1">Setup</span>
+        </button>
+    </nav>
 
-    <!-- Script Section -->
     <script>
-        // Tab Management
-        function showTab(tabId) {
-            // Hide all contents
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('block'));
+        // Core Tab System
+        function switchTab(id) {
+            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + id).classList.add('active');
             
-            // Show selected
-            const activeTab = document.getElementById(tabId);
-            activeTab.classList.remove('hidden');
-            activeTab.classList.add('block');
-
-            // Update Nav Styles
-            document.querySelectorAll('.nav-tab').forEach(btn => {
-                btn.classList.remove('tab-active');
-                btn.classList.add('text-slate-500');
-            });
-            const activeBtn = document.getElementById('tab-' + tabId);
-            activeBtn.classList.add('tab-active');
-            activeBtn.classList.remove('text-slate-500');
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('nav-active'));
+            const activeNav = document.getElementById('nav-' + id);
+            if(activeNav) activeNav.classList.add('nav-active');
+            window.scrollTo(0,0);
         }
 
-        // Settings Logic
-        function toggleSettings() {
-            const modal = document.getElementById('settings-modal');
-            modal.classList.toggle('hidden');
-            const savedKey = localStorage.getItem('ssc_api_key');
-            if(savedKey) document.getElementById('api-key').value = savedKey;
-        }
-
+        // Setup & Persistence
         function saveSettings() {
+            const name = document.getElementById('user-name').value;
             const key = document.getElementById('api-key').value;
-            localStorage.setItem('ssc_api_key', key);
-            toggleSettings();
-            showStatus("Settings Saved!");
+            localStorage.setItem('ssc_name', name);
+            localStorage.setItem('ssc_key', key);
+            
+            checkAIStatus();
+            alert("Settings Saved! Checking AI Connection...");
+            switchTab('home');
         }
 
-        // Photo Studio Logic
-        function handlePhoto(event) {
-            const file = event.target.files[0];
-            if(!file) return;
+        function checkAIStatus() {
+            const key = localStorage.getItem('ssc_key');
+            const dot = document.getElementById('ai-status-dot');
+            const err = document.getElementById('ai-error');
+            const topName = document.getElementById('top-username');
+            
+            const name = localStorage.getItem('ssc_name');
+            if(name) topName.innerText = "Officer " + name;
 
+            if(key && key.length > 10) {
+                dot.classList.replace('bg-red-500', 'bg-green-500');
+                err.classList.add('hidden');
+            } else {
+                dot.classList.replace('bg-green-500', 'bg-red-500');
+                err.classList.remove('hidden');
+            }
+        }
+
+        // Age Calc
+        function runAgeCalc() {
+            const d1 = new Date(document.getElementById('dob').value);
+            const d2 = new Date(document.getElementById('cutoff').value);
+            if(isNaN(d1)) return alert("Select Birth Date!");
+            
+            let years = d2.getFullYear() - d1.getFullYear();
+            let months = d2.getMonth() - d1.getMonth();
+            if (months < 0 || (months === 0 && d2.getDate() < d1.getDate())) years--;
+            
+            const res = document.getElementById('age-result');
+            const val = document.getElementById('age-val');
+            res.classList.remove('hidden');
+            val.innerText = years + " Years Old";
+        }
+
+        // AI Mock (With improved Error Handling)
+        async function fetchAI() {
+            const key = localStorage.getItem('ssc_key');
+            if(!key) { switchTab('settings'); return; }
+
+            const btn = document.getElementById('ai-btn');
+            const out = document.getElementById('ai-output-box');
+            const type = document.getElementById('mock-type').value;
+
+            btn.disabled = true;
+            btn.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> AI Thinking...";
+            out.classList.remove('hidden');
+            out.innerText = "Connecting to Gemini servers...";
+
+            try {
+                // Using 1.5-flash for maximum speed and compatibility
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ contents: [{ parts: [{ text: `Generate 1 difficult MCQ question for ${type} in SSC CGL pattern. Options A,B,C,D. Show correct answer and explanation.` }] }] })
+                });
+
+                if(!response.ok) throw new Error("API_ERROR");
+
+                const data = await response.json();
+                if(data.candidates && data.candidates[0].content.parts[0].text) {
+                    out.innerText = data.candidates[0].content.parts[0].text;
+                } else {
+                    throw new Error("EMPTY_RESP");
+                }
+            } catch (err) {
+                out.innerText = "❌ API Error: Your key might be invalid or expired. Please check Setup tab and ensure you are using a Gemini 1.5 key.";
+                console.error(err);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = "<i class='fa-solid fa-robot'></i> Generate AI Question";
+            }
+        }
+
+        // Photo Studio
+        function handlePic(input) {
+            const file = input.files[0];
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = (e) => {
                 const img = new Image();
-                img.onload = function() {
-                    const canvas = document.getElementById('canvas');
-                    const ctx = canvas.getContext('2d');
-                    
-                    // SSC Requirement: 3.5cm x 4.5cm -> roughly 350x450px
-                    canvas.width = 350;
-                    canvas.height = 450;
-                    canvas.classList.remove('hidden');
-                    
-                    ctx.fillStyle = "white";
-                    ctx.fillRect(0,0,350,450);
+                img.onload = () => {
+                    const c = document.getElementById('pic-canvas');
+                    const ctx = c.getContext('2d');
+                    c.width = 350; c.height = 450;
                     ctx.drawImage(img, 0, 0, 350, 450);
-                    
-                    document.getElementById('photo-actions').classList.remove('hidden');
-                    showStatus("Photo Processed Successfully!");
+                    document.getElementById('pic-idle').classList.add('hidden');
+                    document.getElementById('pic-ready').classList.remove('hidden');
                 };
                 img.src = e.target.result;
             };
             reader.readAsDataURL(file);
         }
 
-        function downloadPhoto() {
-            const canvas = document.getElementById('canvas');
-            const link = document.createElement('a');
-            link.download = 'ssc-photo-ready.jpg';
-            link.href = canvas.toDataURL('image/jpeg', 0.9);
-            link.click();
+        function savePic() {
+            const c = document.getElementById('pic-canvas');
+            const a = document.createElement('a');
+            a.download = 'Officer_Passport_Photo.jpg';
+            a.href = c.toDataURL('image/jpeg', 0.95);
+            a.click();
         }
 
-        // Mock Test Engine
-        async function generateMock() {
-            const apiKey = localStorage.getItem('ssc_api_key');
-            if(!apiKey) {
-                alert("Please add your Gemini API Key in Settings first!");
-                toggleSettings();
-                return;
-            }
-
-            const area = document.getElementById('test-area');
-            const card = document.getElementById('question-card');
-            area.classList.remove('hidden');
-            card.innerHTML = "<div class='flex items-center gap-3'><i class='fas fa-spinner fa-spin'></i> AI is drafting questions...</div>";
-
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: "Generate 1 difficult SSC CGL level General Awareness MCQ with 4 options and the correct answer." }] }]
-                    })
-                });
-                
-                const data = await response.json();
-                const text = data.candidates[0].content.parts[0].text;
-                card.innerHTML = `<div class='prose max-w-none text-sm'>${text.replace(/\n/g, '<br>')}</div>`;
-            } catch (err) {
-                card.innerHTML = "<div class='text-red-500'>Error: Make sure your API key is correct and you have internet access.</div>";
-            }
-        }
-
-        // Helper UI
-        function showStatus(msg) {
-            const toast = document.createElement('div');
-            toast.className = "fixed bottom-24 left-1/2 -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full text-sm shadow-xl z-50 transition-opacity duration-500";
-            toast.innerText = msg;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.style.opacity = '0', 2000);
-            setTimeout(() => toast.remove(), 2500);
-        }
-
-        // Fix for iOS Safari Height
-        window.addEventListener('resize', () => {
-            let vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-        });
+        window.onload = () => {
+            checkAIStatus();
+            document.getElementById('nav-home').classList.add('nav-active');
+        };
     </script>
 </body>
 </html>
